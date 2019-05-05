@@ -1,0 +1,28 @@
+version: '2'
+
+volumes:
+    data:
+        external:
+            name: "${COMPOSE_PROJECT_NAME}-data"
+
+services:
+    rsync:
+        container_name: "${COMPOSE_PROJECT_NAME}_rsync"
+        build: ./build
+        image: "${COMPOSE_PROJECT_NAME}_rsync:latest"
+        environment:
+            READ_ONLY: "${READ_ONLY}"
+            CHROOT: "${CHROOT}"
+            VOLUME_NAME: "${VOLUME_NAME}"
+            HOSTS_ALLOW: "${HOSTS_ALLOW}"
+            USER: "${USER}"
+            USER_ID: "${USER_ID}"
+            GROUP: "${GROUP}"
+            GROUP_ID: "${GROUP_ID}"
+        volumes:
+            - data:/data:rw
+        ports:
+            - "${PORT}:873"
+        logging:
+            driver: "json-file"
+            options: { max-size: "2m", max-file: "3" }
