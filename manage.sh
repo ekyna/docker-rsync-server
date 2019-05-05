@@ -2,13 +2,24 @@
 
 cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-if [[ ! -f .env ]]
+if [[ ! -f ./.env ]]
 then
     printf "\e[31mPlease create .env file.\e[0m\n"
     exit 1
 fi
 
-source .env
+source ./.env
+
+if [[ -z ${COMPOSE_PROJECT_NAME+x} ]]; then printf "\e[31mThe 'COMPOSE_PROJECT_NAME' variable is not defined.\e[0m\n"; exit 1; fi
+if [[ -z ${PORT+x} ]]; then printf "\e[31mThe 'PORT' variable is not defined.\e[0m\n"; exit 1; fi
+if [[ -z ${READ_ONLY+x} ]]; then printf "\e[31mThe 'READ_ONLY' variable is not defined.\e[0m\n"; exit 1; fi
+if [[ -z ${CHROOT+x} ]]; then printf "\e[31mThe 'CHROOT' variable is not defined.\e[0m\n"; exit 1; fi
+if [[ -z ${VOLUME_NAME+x} ]]; then printf "\e[31mThe 'VOLUME_NAME' variable is not defined.\e[0m\n"; exit 1; fi
+if [[ -z ${HOSTS_ALLOW+x} ]]; then printf "\e[31mThe 'HOSTS_ALLOW' variable is not defined.\e[0m\n"; exit 1; fi
+if [[ -z ${USER+x} ]]; then printf "\e[31mThe 'USER' variable is not defined.\e[0m\n"; exit 1; fi
+if [[ -z ${USER_ID+x} ]]; then printf "\e[31mThe 'USER_ID' variable is not defined.\e[0m\n"; exit 1; fi
+if [[ -z ${GROUP+x} ]]; then printf "\e[31mThe 'GROUP' variable is not defined.\e[0m\n"; exit 1; fi
+if [[ -z ${GROUP_ID+x} ]]; then printf "\e[31mThe 'GROUP_ID' variable is not defined.\e[0m\n"; exit 1; fi
 
 LOG_PATH=log.txt
 
