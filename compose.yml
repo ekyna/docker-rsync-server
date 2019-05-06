@@ -1,10 +1,5 @@
 version: '2'
 
-volumes:
-    data:
-        external:
-            name: "${COMPOSE_PROJECT_NAME}-data"
-
 services:
     rsync:
         container_name: "${COMPOSE_PROJECT_NAME}_rsync"
@@ -20,7 +15,7 @@ services:
             GROUP: "${GROUP}"
             GROUP_ID: "${GROUP_ID}"
         volumes:
-            - data:/data:rw
+            - ./data:/data:rw
         ports:
             - "${PORT}:873"
         logging:
